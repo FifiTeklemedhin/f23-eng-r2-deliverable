@@ -44,7 +44,6 @@ export default async function SpeciesCard({species, userId}: {species:Species, u
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DetailedSpeciesContent species={species}></DetailedSpeciesContent>
-         
         </DialogContent>
 
       </Dialog>
@@ -55,7 +54,7 @@ export default async function SpeciesCard({species, userId}: {species:Species, u
          <Button variant="outline" className="mt-3 w-64" onClick={() => setEdit(true)} >Edit</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
         </DialogTrigger>
         <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
-        <EditSpeciesDialog species={species} userId={userId}></EditSpeciesDialog>
+        <EditSpeciesDialog species={species} userId={userId} edit={edit} setEdit={setEdit}></EditSpeciesDialog>
         </DialogContent>
       </Dialog>
       

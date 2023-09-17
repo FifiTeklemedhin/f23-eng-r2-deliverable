@@ -19,7 +19,7 @@ import { type Database } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { useState, type BaseSyntheticEvent } from "react";
+import { useState, type BaseSyntheticEvent, Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -60,10 +60,11 @@ const defaultValues: Partial<FormData> = {
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
-export default function EditSpeciesDialog({ species, userId}: {species: Species, userId: string}) { 
+export default function EditSpeciesDialog({ species, userId, edit, setEdit}: {species: Species, userId: string, edit: boolean, setEdit: Dispatch<SetStateAction<boolean>>}) { 
 
     const router = useRouter();
-    const [open, setOpen] = useState<boolean>(true);
+    // is state changing
+    // if state is changed, do I render this properly
 
   
     const form = useForm<FormData>({
@@ -108,7 +109,7 @@ export default function EditSpeciesDialog({ species, userId}: {species: Species,
                 image: input.image,
               }
         )
-        .match(
+        .match( // if the same user who created the species is currently trying to edit it, find the species according to its scientific name and modify its properties
             {
                 author: userId,
                 scientific_name: species.scientific_name,
@@ -127,8 +128,6 @@ export default function EditSpeciesDialog({ species, userId}: {species: Species,
       // This way the user sees any changes that have occurred during transformation
       form.reset(input);
   
-      setOpen(false);
-  
       // Refresh all server components in the current route. This helps display the newly created species because species are fetched in a server component, species/page.tsx.
       // Refreshing that server component will display the new species from Supabase
       router.refresh();
@@ -136,7 +135,7 @@ export default function EditSpeciesDialog({ species, userId}: {species: Species,
   
     return (
         
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={edit} onOpenChange={setEdit}>
           <Form  {...form}>
             <form onSubmit={(e: BaseSyntheticEvent) => void form.handleSubmit(onSubmit)(e)}>
               <div className="grid w-full items-center gap-4">
@@ -261,7 +260,7 @@ export default function EditSpeciesDialog({ species, userId}: {species: Species,
                     type="button"
                     className="ml-1 mr-1 flex-auto"
                     variant="secondary"
-                    onClick={() => setOpen(false)}
+                    onClick={() => { setEdit(false); console.log("attempted to close: " + edit)}}
                   >
                     Cancel
                   </Button>
