@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Button } from "@/components/ui/button";
 import type { Database } from "@/lib/schema";
 import Image from "next/image";
@@ -15,13 +15,18 @@ import {
 
 import { useState } from "react";
 import DetailedSpeciesContent from "@/app/species/detailed-species-content";
-
+import EditSpeciesDialog from "./edit-species-dialog";
+import { createServerSupabaseClient } from "@/lib/server-utils";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
-export default function SpeciesCard(species: Species) {
-  const [open, setOpen] = useState<boolean>(false); // TODO: learn more about state in react
+export default function SpeciesCard(species: Species) { // changed to an async function so that we can use await
 
+  
+  const [open, setOpen] = useState<boolean>(false); // TODO: learn more about state in react
+  const [edit, setEdit] = useState<boolean>(false); // TODO: learn more about state in react
+  
+  
   return (
     <div className="min-w-72 m-4 w-72 flex-none rounded border-2 p-3 shadow">
       {species.image && (
@@ -46,7 +51,9 @@ export default function SpeciesCard(species: Species) {
       </Dialog>
       </div>
       
-      <Button variant="outline" className="mt-3 w-64" onClick={() => setOpen(true)} >Edit</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
-    </div>
+      <Button variant="outline" className="mt-3 w-64" onClick={() => setEdit(true)} >Edit</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
+      <EditSpeciesDialog species={species}  userId={session.user.id}></EditSpeciesDialog>
+
+   </div>
   );
 }
