@@ -63,9 +63,8 @@ type Species = Database["public"]["Tables"]["species"]["Row"];
 export default function EditSpeciesDialog({ species, userId}: {species: Species, userId: string}) { 
 
     const router = useRouter();
-    const [open, setOpen] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(true);
 
-   
   
     const form = useForm<FormData>({
       resolver: zodResolver(speciesSchema),
@@ -74,19 +73,48 @@ export default function EditSpeciesDialog({ species, userId}: {species: Species,
     });
   
     const onSubmit = async (input: FormData) => {
-      // The `input` prop contains data that has already been processed by zod. We can now use it in a supabase query
+      // The `input` prop contains data that has already been processed by zod. We can now use it in a supabase query 
       const supabase = createClientComponentClient<Database>();
-      const { error } = await supabase.from("species").insert([
-        {
-          author: userId,
-          common_name: input.common_name,
-          description: input.description,
-          kingdom: input.kingdom,
-          scientific_name: input.scientific_name,
-          total_population: input.total_population,
-          image: input.image,
-        },
-      ]);
+
+      const changed_elements = [{
+        common_name : input.common_name ? input.common_name != species.common_name : false,
+        description : input.description ? input.description != species.description : false,
+        kingdom : input.kingdom ? input.kingdom != species.kingdom : false,
+        scientific_name : input.scientific_name ? input.scientific_name != species.scientific_name : false,
+        total_population : input.total_population ? input.total_population != species.total_population : false,
+        image : input.image ? input.image != species.image : false
+      }]
+      /*
+      {
+            author: userId,
+            common_name: input.common_name,
+            description: input.description,
+            kingdom: input.kingdom,
+            scientific_name: input.scientific_name,
+            total_population: input.total_population,
+            image: input.image,
+          }
+        */
+      const { error } = await supabase // updates species card: referenced https://supabase.com/docs/reference/javascript/update
+        .from('species')
+        .update(
+            {
+                author: userId,
+                common_name: input.common_name,
+                description: input.description,
+                kingdom: input.kingdom,
+                scientific_name: input.scientific_name,
+                total_population: input.total_population,
+                image: input.image,
+              }
+        )
+        .match(
+            {
+                author: userId,
+                scientific_name: species.scientific_name,
+            }
+        );
+      
   
       if (error) {
         return toast({
@@ -107,8 +135,9 @@ export default function EditSpeciesDialog({ species, userId}: {species: Species,
     };
   
     return (
-      
-          <Form {...form}>
+        
+        <Dialog open={open} onOpenChange={setOpen}>
+          <Form  {...form}>
             <form onSubmit={(e: BaseSyntheticEvent) => void form.handleSubmit(onSubmit)(e)}>
               <div className="grid w-full items-center gap-4">
                 <FormField
@@ -226,7 +255,7 @@ export default function EditSpeciesDialog({ species, userId}: {species: Species,
                 />
                 <div className="flex">
                   <Button type="submit" className="ml-1 mr-1 flex-auto">
-                    Add Species
+                    Edit Species
                   </Button>
                   <Button
                     type="button"
@@ -240,7 +269,7 @@ export default function EditSpeciesDialog({ species, userId}: {species: Species,
               </div>
             </form>
           </Form>
-      
+        </Dialog>
     );
   }
   
