@@ -60,7 +60,7 @@ const defaultValues: Partial<FormData> = {
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
-export default function AddSpeciesDialog({ species, userId}: {species: Species, userId: string}) { 
+export default function EditSpeciesDialog({ species, userId}: {species: Species, userId: string}) { 
 
     const router = useRouter();
     const [open, setOpen] = useState<boolean>(false);
@@ -107,20 +107,7 @@ export default function AddSpeciesDialog({ species, userId}: {species: Species, 
     };
   
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button variant="secondary" onClick={() => setOpen(true)}>
-            <Icons.add className="mr-3 h-5 w-5" />
-            Add Species
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
-          <DialogHeader>
-            <DialogTitle>Add Species</DialogTitle>
-            <DialogDescription>
-              Add a new species here. Click &quot;Add Species&quot; below when you&apos;re done.
-            </DialogDescription>
-          </DialogHeader>
+      
           <Form {...form}>
             <form onSubmit={(e: BaseSyntheticEvent) => void form.handleSubmit(onSubmit)(e)}>
               <div className="grid w-full items-center gap-4">
@@ -253,8 +240,7 @@ export default function AddSpeciesDialog({ species, userId}: {species: Species, 
               </div>
             </form>
           </Form>
-        </DialogContent>
-      </Dialog>
+      
     );
   }
   

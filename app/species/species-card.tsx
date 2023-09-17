@@ -20,8 +20,7 @@ import { createServerSupabaseClient } from "@/lib/server-utils";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
-export default function SpeciesCard(species: Species) { // changed to an async function so that we can use await
-
+export default async function SpeciesCard({species, userId}: {species:Species, userId: string}) { // changed to include a userID in its parameters
   
   const [open, setOpen] = useState<boolean>(false); // TODO: learn more about state in react
   const [edit, setEdit] = useState<boolean>(false); // TODO: learn more about state in react
@@ -51,8 +50,15 @@ export default function SpeciesCard(species: Species) { // changed to an async f
       </Dialog>
       </div>
       
-      <Button variant="outline" className="mt-3 w-64" onClick={() => setEdit(true)} >Edit</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
-      <EditSpeciesDialog species={species}  userId={session.user.id}></EditSpeciesDialog>
+      <Dialog open={edit} onOpenChange={setEdit}>
+        <DialogTrigger>
+         <Button variant="outline" className="mt-3 w-64" onClick={() => setEdit(true)} >Edit</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
+        </DialogTrigger>
+        <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
+        <EditSpeciesDialog species={species} userId={userId}></EditSpeciesDialog>
+        </DialogContent>
+      </Dialog>
+      
 
    </div>
   );
