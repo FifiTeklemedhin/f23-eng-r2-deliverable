@@ -33,10 +33,10 @@ export default function SpeciesCard(species: Species) {
       <h4 className="text-lg font-light italic">{species.scientific_name}</h4>
       <p>{species.description ? species.description.slice(0, 150).trim() + "..." : ""}</p>
       {/* Replace with detailed view */}
-
+      <div>
       <Dialog open={open} onOpenChange={setOpen}> {/* opens only when you click the button, calls a function called setOpen to do this */}
         <DialogTrigger>
-          <Button variant="outline" className="mt-3 w-full" onClick={() => setOpen(true)} >Learn More</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
+          <Button  className="mt-3 w-64" onClick={() => setOpen(true)} >Learn More</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DetailedSpeciesContent species={species}></DetailedSpeciesContent>
@@ -44,6 +44,9 @@ export default function SpeciesCard(species: Species) {
         </DialogContent>
 
       </Dialog>
+      </div>
+      
+      <Button variant="outline" className="mt-3 w-64" onClick={() => setOpen(true)} >Edit</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
     </div>
   );
 }
