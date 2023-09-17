@@ -1,9 +1,27 @@
+'use client';
 import { Button } from "@/components/ui/button";
 import type { Database } from "@/lib/schema";
 import Image from "next/image";
+//import { DetailedSpeciesDialog } from "@/app/species/detailed-species-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+import { useState } from "react";
+import DetailedSpeciesContent from "@/app/species/detailed-species-content";
+
+
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
 export default function SpeciesCard(species: Species) {
+  const [open, setOpen] = useState<boolean>(false); // TODO: learn more about state in react
+
   return (
     <div className="min-w-72 m-4 w-72 flex-none rounded border-2 p-3 shadow">
       {species.image && (
@@ -15,7 +33,17 @@ export default function SpeciesCard(species: Species) {
       <h4 className="text-lg font-light italic">{species.scientific_name}</h4>
       <p>{species.description ? species.description.slice(0, 150).trim() + "..." : ""}</p>
       {/* Replace with detailed view */}
-      <Button className="mt-3 w-full">Learn More</Button>
+
+      <Dialog open={open} onOpenChange={setOpen}> {/* opens only when you click the button, calls a function called setOpen to do this */}
+        <DialogTrigger>
+          <Button variant="outline" className="mt-3 w-full" onClick={() => setOpen(true)} >Learn More</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DetailedSpeciesContent species={species}></DetailedSpeciesContent>
+         
+        </DialogContent>
+
+      </Dialog>
     </div>
   );
 }

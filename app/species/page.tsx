@@ -29,6 +29,13 @@ export default async function SpeciesList() {
       <div className="flex flex-wrap justify-center">
         {species?.map((species) => <SpeciesCard key={species.id} {...species} />)}
       </div>
+     
+     
+     
+     
+
+
+
     </>
   );
 }
