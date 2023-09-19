@@ -23,40 +23,6 @@ import { useState, type BaseSyntheticEvent, Dispatch, SetStateAction } from "rea
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-// We use zod (z) to define a schema for the "Add species" form.
-// zod handles validation of the input values with methods like .string(), .nullable(). It also processes the form inputs with .transform() before the inputs are sent to the database.
-
-const kingdoms = z.enum(["Animalia", "Plantae", "Fungi", "Protista", "Archaea", "Bacteria"]);
-
-const speciesSchema = z.object({
-  common_name: z
-    .string()
-    .nullable()
-    // Transform empty string or only whitespace input to null before form submission
-    .transform((val) => (val?.trim() === "" ? null : val?.trim())),
-  description: z
-    .string()
-    .nullable()
-    .transform((val) => (val?.trim() === "" ? null : val?.trim())),
-  kingdom: kingdoms,
-  scientific_name: z
-    .string()
-    .trim()
-    .min(1)
-    .transform((val) => val?.trim()),
-  total_population: z.number().int().positive().min(1).optional(),
-  image: z
-    .string()
-    .url()
-    .nullable()
-    .transform((val) => val?.trim()),
-});
-
-type FormData = z.infer<typeof speciesSchema>;
-
-const defaultValues: Partial<FormData> = {
-  kingdom: "Animalia",
-};
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
 
@@ -64,28 +30,19 @@ export default function ConfirmDeletionDialog({ species, userId, open, setOpen}:
 
     const router = useRouter();
   
-    const form = useForm<FormData>({
-      resolver: zodResolver(speciesSchema),
-      defaultValues,
-      mode: "onChange",
-    });
-  
     const handleSubmit = async () => {
       // The `input` prop contains data that has already been processed by zod. We can now use it in a supabase query 
       const supabase = createClientComponentClient<Database>();
-
+      console.log("deletion confirmed: " + species.scientific_name);
      
-      const { error } = await supabase // deletes species row: referenced https://supabase.com/docs/reference/javascript/update
-        .from('species')
+      const {data, error } = await supabase // deletes species row: referenced https://supabase.com/docs/reference/javascript/update
+        .from("species")
         .delete()
         .match( // if the same user who created the species is currently trying to edit it, find the species according to its scientific name and modify its properties
-            {
-                author: userId,
-                scientific_name: species.scientific_name,
-            }
-        );
-      
-  
+            {scientific_name: species.scientific_name}
+        ).select();
+        console.log(data)
+
       if (error) {
         return toast({
           title: "Something went wrong.",
@@ -106,8 +63,7 @@ export default function ConfirmDeletionDialog({ species, userId, open, setOpen}:
                     type="button"
                     className="ml-1 mr-1 flex-auto"
                     variant="secondary"
-                    onClick={() => { setOpen(false); }}
-                    onSubmit={() => handleSubmit()}
+                    onClick={() => { setOpen(false); handleSubmit();}}
                   >
                     Permanently Delete Species
                   </Button>

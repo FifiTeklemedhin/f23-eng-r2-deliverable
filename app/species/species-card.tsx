@@ -49,7 +49,7 @@ export default async function SpeciesCard({species, userId}: {species:Species, u
         <DialogTrigger>
           <Button  className="mt-3 w-64" onClick={() => setOpen(true)} >Learn More</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px overflow-y-scroll max-h-full">
           <DetailedSpeciesContent species={species}></DetailedSpeciesContent>
         </DialogContent>
 
@@ -66,7 +66,7 @@ export default async function SpeciesCard({species, userId}: {species:Species, u
       </Dialog>
 
       {/* create a delete button that only appears if the species' author is the same as the current userID*/}
-      <DeleteSpeciesDialog species={species} userId={userId}></DeleteSpeciesDialog>
+        <DeleteSpeciesDialog species={species} userId={userId}></DeleteSpeciesDialog>
    </div>
   );
 }
