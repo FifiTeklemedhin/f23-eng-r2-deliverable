@@ -46,7 +46,7 @@ export default function ConfirmDeletionDialog({ species, userId, open, setOpen}:
   
      const deletable = <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
-      <h1>Are you sure you would like to delete '{species.scientific_name}'?</h1>
+      <h1>Are you sure you would like to delete &lsquo;{species.scientific_name}&lsquo;?</h1>
       <Button
                     type="button"
                     className="ml-1 mr-1 flex-auto"
