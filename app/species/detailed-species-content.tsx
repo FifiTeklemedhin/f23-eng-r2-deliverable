@@ -12,7 +12,7 @@ export default function DetailedSpeciesContent({
 }: speciesContentProps) { 
     
     return (
-        <div className="min-w-72 m-4 w-72 flex-none rounded border-2 p-3 shadow">
+        <div className="sm:max-w-[430px] flex-none rounded border-2 p-3 shadow">
         <h2 className="mt-3 text-2xl font-semibold">{species.common_name}</h2>
         <h4 className="text-lg font-light italic">Kingdom: {species.kingdom}</h4>
         <h4 className="text-lg font-light italic">Scientific Name: {species.scientific_name}</h4>

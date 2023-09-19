@@ -49,7 +49,7 @@ export default async function SpeciesCard({species, userId}: {species:Species, u
         <DialogTrigger>
           <Button  className="mt-3 w-64" onClick={() => setOpen(true)} >Learn More</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px overflow-y-scroll max-h-full">
+        <DialogContent className="sm:max-w-[425px] overflow-y-scroll max-h-full">
           <DetailedSpeciesContent species={species}></DetailedSpeciesContent>
         </DialogContent>
 
