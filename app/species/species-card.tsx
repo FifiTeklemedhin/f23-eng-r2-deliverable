@@ -55,17 +55,9 @@ export default async function SpeciesCard({species, userId}: {species:Species, u
 
       </Dialog>
       </div>
-      
-      <Dialog open={edit} onOpenChange={setEdit}>
-        <DialogTrigger>
-         <Button variant="outline" className="mt-3 w-64" onClick={() => setEdit(true)} >Edit</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
-        </DialogTrigger>
-        <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
-        <EditSpeciesDialog species={species} userId={userId} edit={edit} setEdit={setEdit}></EditSpeciesDialog>
-        </DialogContent>
-      </Dialog>
 
-      {/* create a delete button that only appears if the species' author is the same as the current userID*/}
+      {/* edit/delete buttons/functionality appear only if user trying to modify/delete species card is same as user who created card*/}
+        <EditSpeciesDialog species={species} userId={userId}></EditSpeciesDialog>
         <DeleteSpeciesDialog species={species} userId={userId}></DeleteSpeciesDialog>
    </div>
   );

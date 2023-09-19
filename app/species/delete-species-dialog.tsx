@@ -35,14 +35,14 @@ export default function DeleteSpeciesDialog({ species, userId}: {species: Specie
     const [open, setOpen] = useState<boolean>(false); 
   
   
-     const deletable = <Dialog open={open} onOpenChange={setOpen}>
+     const delete_dialog = <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
        <Button variant="outline" className="mt-3 w-64" onClick={() => setOpen(true)} >Delete</Button>  {/* this is the button that opens the dialog ; not sure what variant = outline means */}
       </DialogTrigger>
       <ConfirmDeletionDialog species={species} userId={userId} open={open} setOpen={setOpen}></ConfirmDeletionDialog>
     </Dialog> ;
         
-     const rendered_components = species.author === userId ? deletable : <div></div>;
+     const rendered_components = species.author === userId ? delete_dialog : <div></div>;
      
 
     return (
