@@ -1,16 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
+import  { Button } from "@/components/ui/button";
+import  {
   Dialog,
   DialogContent,
 } from "@/components/ui/dialog";
 
-import { toast } from "@/components/ui/use-toast";
-import { type Database } from "@/lib/schema";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import  { toast } from "@/components/ui/use-toast";
+import type {  Database } from "@/lib/schema";
+import  { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import  { useRouter } from "next/navigation";
+import type { Dispatch, SetStateAction } from "react";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
