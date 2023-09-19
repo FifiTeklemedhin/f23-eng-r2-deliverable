@@ -1,5 +1,5 @@
 'use client';
-import { Database } from "@/lib/schema";
+import type { Database } from "@/lib/schema";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
