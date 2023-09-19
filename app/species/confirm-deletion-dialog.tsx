@@ -11,6 +11,7 @@ import type {  Database } from "@/lib/schema";
 import  { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import  { useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
+import { Form } from "react-hook-form";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
@@ -45,14 +46,15 @@ export default function ConfirmDeletionDialog({ species, userId, open, setOpen}:
     };
   
      const deletable = <Dialog open={open} onOpenChange={setOpen}>
+      
       <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
+      <Form onSubmit={void handleSubmit()}>
       <h1>Are you sure you would like to delete &lsquo;{species.scientific_name}&lsquo;?</h1>
       <Button
-                    type="button"
+                    type="submit" 
                     className="ml-1 mr-1 flex-auto"
                     variant="secondary"
-                    onClick={async () => { 
-                      setOpen(false); await handleSubmit().then(() => {});}}
+                    
                   >
                     Permanently Delete Species
                   </Button>
@@ -64,6 +66,7 @@ export default function ConfirmDeletionDialog({ species, userId, open, setOpen}:
                   >
                     Cancel
         </Button>
+        </Form>
       </DialogContent>
     </Dialog> ;
         
