@@ -63,6 +63,7 @@ type Species = Database["public"]["Tables"]["species"]["Row"];
 export default function EditSpeciesDialog({ species, userId }: { species: Species, userId: string }) {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  
   // is state changing
   // if state is changed, do I render this properly
 
@@ -113,6 +114,8 @@ export default function EditSpeciesDialog({ species, userId }: { species: Specie
     // Refresh all server components in the current route. This helps display the newly created species because species are fetched in a server component, species/page.tsx.
     // Refreshing that server component will display the new species from Supabase
     router.refresh();
+    
+    
     setOpen(false); // if user enters valid input, close the dialog. Else keep error version of dialog open
 
     
@@ -250,7 +253,7 @@ export default function EditSpeciesDialog({ species, userId }: { species: Specie
                   type="button"
                   className="ml-1 mr-1 flex-auto"
                   variant="secondary"
-                  onClick={() => {setOpen(false); }}
+                  onClick={() => {form.reset(); setOpen(false); }}
                 >
                   Cancel
                 </Button>
@@ -262,7 +265,7 @@ export default function EditSpeciesDialog({ species, userId }: { species: Specie
 
     </Dialog>;
 
-    const rendered_components = species.author === userId ? edit_dialog : <div></div>;
+    const rendered_components = species.author === userId ? edit_dialog : <div></div>; // only render edit dialog if the user attempting to edit is creator of species card
     return (
       rendered_components
     );
