@@ -52,7 +52,7 @@ export default function ConfirmDeletionDialog({ species, userId, open, setOpen}:
                     className="ml-1 mr-1 flex-auto"
                     variant="secondary"
                     onClick={async () => { 
-                      setOpen(false); await handleSubmit();}}
+                      setOpen(false); await handleSubmit().then(() => {});}}
                   >
                     Permanently Delete Species
                   </Button>
