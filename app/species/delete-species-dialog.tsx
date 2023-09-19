@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dialog";
 
 import { type Database } from "@/lib/schema";
-import { useRouter } from "next/navigation";
 import { useState} from "react";
 import ConfirmDeletionDialog from "./confirm-deletion-dialog";
 
@@ -18,7 +17,6 @@ type Species = Database["public"]["Tables"]["species"]["Row"];
 
 export default function DeleteSpeciesDialog({ species, userId}: {species: Species, userId: string}) { 
 
-    const router = useRouter();
     const [open, setOpen] = useState<boolean>(false); 
   
   

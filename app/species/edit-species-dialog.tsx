@@ -1,23 +1,23 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
+import  { Button } from "@/components/ui/button";
+import  {
   Dialog,
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
-import { type Database } from "@/lib/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import  { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import  { Input } from "@/components/ui/input";
+import  { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import  { Textarea } from "@/components/ui/textarea";
+import  { toast } from "@/components/ui/use-toast";
+import type { Database } from "@/lib/schema";
+import  { zodResolver } from "@hookform/resolvers/zod";
+import  { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState, type BaseSyntheticEvent} from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import  { z } from "zod";
 
 // We use zod (z) to define a schema for the "Add species" form.
 // zod handles validation of the input values with methods like .string(), .nullable(). It also processes the form inputs with .transform() before the inputs are sent to the database.
