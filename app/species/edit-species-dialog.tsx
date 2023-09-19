@@ -113,6 +113,7 @@ export default function EditSpeciesDialog({ species, userId }: { species: Specie
     // Refresh all server components in the current route. This helps display the newly created species because species are fetched in a server component, species/page.tsx.
     // Refreshing that server component will display the new species from Supabase
     router.refresh();
+    setOpen(false); // if user enters valid input, close the dialog. Else keep error version of dialog open
 
     
   };
@@ -242,7 +243,6 @@ export default function EditSpeciesDialog({ species, userId }: { species: Specie
                 <Button 
                   type="submit" 
                   className="ml-1 mr-1 flex-auto"
-                  onClick={() => {setOpen(false); }}
                 >
                   Edit Species
                 </Button>
