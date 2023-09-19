@@ -16,6 +16,7 @@ import {
 import { useState } from "react";
 import DetailedSpeciesContent from "@/app/species/detailed-species-content";
 import EditSpeciesDialog from "./edit-species-dialog";
+import DeleteSpeciesDialog from "@/app/species/delete-species-dialog";
 import { createServerSupabaseClient } from "@/lib/server-utils";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
@@ -25,7 +26,13 @@ export default async function SpeciesCard({species, userId}: {species:Species, u
   const [open, setOpen] = useState<boolean>(false); // TODO: learn more about state in react
   const [edit, setEdit] = useState<boolean>(false); // TODO: learn more about state in react
   
-  
+  // const deletable = () => {
+  //   if (species.author === userId)
+  //   {
+  //     return <DeleteSpeciesDialog species={species} userId={userId}></DeleteSpeciesDialog>
+  //   }
+  //   else return <div></div>;
+  // }
   return (
     <div className="min-w-72 m-4 w-72 flex-none rounded border-2 p-3 shadow">
       {species.image && (
@@ -57,8 +64,9 @@ export default async function SpeciesCard({species, userId}: {species:Species, u
         <EditSpeciesDialog species={species} userId={userId} edit={edit} setEdit={setEdit}></EditSpeciesDialog>
         </DialogContent>
       </Dialog>
-      
 
+      {/* create a delete button that only appears if the species' author is the same as the current userID*/}
+      <DeleteSpeciesDialog species={species} userId={userId}></DeleteSpeciesDialog>
    </div>
   );
 }

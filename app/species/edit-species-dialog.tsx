@@ -77,25 +77,7 @@ export default function EditSpeciesDialog({ species, userId, edit, setEdit}: {sp
       // The `input` prop contains data that has already been processed by zod. We can now use it in a supabase query 
       const supabase = createClientComponentClient<Database>();
 
-      const changed_elements = [{
-        common_name : input.common_name ? input.common_name != species.common_name : false,
-        description : input.description ? input.description != species.description : false,
-        kingdom : input.kingdom ? input.kingdom != species.kingdom : false,
-        scientific_name : input.scientific_name ? input.scientific_name != species.scientific_name : false,
-        total_population : input.total_population ? input.total_population != species.total_population : false,
-        image : input.image ? input.image != species.image : false
-      }]
-      /*
-      {
-            author: userId,
-            common_name: input.common_name,
-            description: input.description,
-            kingdom: input.kingdom,
-            scientific_name: input.scientific_name,
-            total_population: input.total_population,
-            image: input.image,
-          }
-        */
+     
       const { error } = await supabase // updates species card: referenced https://supabase.com/docs/reference/javascript/update
         .from('species')
         .update(
@@ -260,7 +242,7 @@ export default function EditSpeciesDialog({ species, userId, edit, setEdit}: {sp
                     type="button"
                     className="ml-1 mr-1 flex-auto"
                     variant="secondary"
-                    onClick={() => { setEdit(false); console.log("attempted to close: " + edit)}}
+                    onClick={() => { setEdit(false); }}
                   >
                     Cancel
                   </Button>
