@@ -53,8 +53,7 @@ export default function ConfirmDeletionDialog({ species, userId, open, setOpen}:
                     variant="secondary"
                     onClick={async () => { 
                       setOpen(false); await handleSubmit().then(
-                      () => {},
-                      () => {},
+                      
                     );
                     ;}}
                   >
