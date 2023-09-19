@@ -20,15 +20,7 @@ type Species = Database["public"]["Tables"]["species"]["Row"];
 export default async function SpeciesCard({species, userId}: {species:Species, userId: string}) { // changed to include a userID in its parameters
   
   const [open, setOpen] = useState<boolean>(false); // TODO: learn more about state in react
-  const [edit, setEdit] = useState<boolean>(false); // TODO: learn more about state in react
-  
-  // const deletable = () => {
-  //   if (species.author === userId)
-  //   {
-  //     return <DeleteSpeciesDialog species={species} userId={userId}></DeleteSpeciesDialog>
-  //   }
-  //   else return <div></div>;
-  // }
+
   return (
     <div className="min-w-72 m-4 w-72 flex-none rounded border-2 p-3 shadow">
       {species.image && (
