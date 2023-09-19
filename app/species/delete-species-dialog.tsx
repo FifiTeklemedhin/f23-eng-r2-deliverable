@@ -8,7 +8,7 @@ import {
 
 import { type Database } from "@/lib/schema";
 import { useRouter } from "next/navigation";
-import { useState, type BaseSyntheticEvent, Dispatch, SetStateAction } from "react";
+import { useState} from "react";
 import ConfirmDeletionDialog from "./confirm-deletion-dialog";
 
 

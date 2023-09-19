@@ -1,13 +1,9 @@
 "use client";
 
-import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -19,7 +15,7 @@ import { type Database } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { useState, type BaseSyntheticEvent, Dispatch, SetStateAction } from "react";
+import { useState, type BaseSyntheticEvent} from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 

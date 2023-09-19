@@ -13,11 +13,10 @@ import { useState } from "react";
 import DetailedSpeciesContent from "@/app/species/detailed-species-content";
 import EditSpeciesDialog from "./edit-species-dialog";
 import DeleteSpeciesDialog from "@/app/species/delete-species-dialog";
-import { createServerSupabaseClient } from "@/lib/server-utils";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
-export default async function SpeciesCard({species, userId}: {species:Species, userId: string}) { // changed to include a userID in its parameters
+export default function SpeciesCard({species, userId}: {species:Species, userId: string}) { // changed to include a userID in its parameters
   
   const [open, setOpen] = useState<boolean>(false); // TODO: learn more about state in react
 
