@@ -10,6 +10,7 @@ import { toast } from "@/components/ui/use-toast";
 import { type Database } from "@/lib/schema";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
+import { Dispatch } from "react";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
